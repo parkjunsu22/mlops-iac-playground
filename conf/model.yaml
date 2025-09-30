@@ -2,3 +2,4 @@ hidden_dim: 64
 lr: 1e-3
 max_epochs: 5
 batch_size: 64
+num_workers: 3    # ← DataLoader 워커 수 (worker01: CPU 4코어이므로 3 권장)
