@@ -1,0 +1,4 @@
+raw_path: data/raw/sample.csv
+processed_path: data/processed/train.csv
+test_size: 0.2
+random_state: 42

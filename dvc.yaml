@@ -1,0 +1,28 @@
+stages:
+  preprocess:
+    cmd: python -m src.preprocess
+    deps:
+      - src/preprocess.py
+      - data/raw/sample.csv
+      - conf/dataset.yaml
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+      - conf/model.yaml
+    outs:
+      - model.onnx
+    metrics:
+      - mlruns
+
+  eval:
+    cmd: python -m src.eval
+    deps:
+      - src/eval.py
+      - model.onnx
+      - data/processed/test.csv

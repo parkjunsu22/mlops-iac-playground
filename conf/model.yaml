@@ -1,0 +1,4 @@
+hidden_dim: 64
+lr: 1e-3
+max_epochs: 5
+batch_size: 64
