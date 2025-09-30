@@ -4,3 +4,4 @@ mlruns/
 data/**/*.cache
 data/processed/
 model.onnx
+/mlruns

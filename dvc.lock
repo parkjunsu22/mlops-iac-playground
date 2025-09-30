@@ -1,0 +1,66 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python -m src.preprocess
+    deps:
+    - path: conf/dataset.yaml
+      hash: md5
+      md5: c66614074e0288943872d7f86e043866
+      size: 103
+    - path: data/raw/sample.csv
+      hash: md5
+      md5: c694166fad34e66c9a56f772186b9b1c
+      size: 783008
+    - path: src/preprocess.py
+      hash: md5
+      md5: d88387e0256974174877dca3470e3d10
+      size: 578
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 9e2a3bc77b60d05d3fe50c105ae8bc4e
+      size: 154429
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b6ea680e91866a99d6f2adc10e5a7011
+      size: 617489
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: conf/model.yaml
+      hash: md5
+      md5: 6e5b02f69c8735f5ba7f5d3f0cac0c41
+      size: 53
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b6ea680e91866a99d6f2adc10e5a7011
+      size: 617489
+    - path: src/train.py
+      hash: md5
+      md5: 57bd5f758783c8ddcf945ad08f6606c1
+      size: 2270
+    outs:
+    - path: mlruns
+      hash: md5
+      md5: 20ab7d46bd99859b2817a2176d852df0.dir
+      size: 1472
+      nfiles: 12
+    - path: model.onnx
+      hash: md5
+      md5: ad35ccede0225a597ecf0ef6311fe788
+      size: 23352
+  eval:
+    cmd: python -m src.eval
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 9e2a3bc77b60d05d3fe50c105ae8bc4e
+      size: 154429
+    - path: model.onnx
+      hash: md5
+      md5: ad35ccede0225a597ecf0ef6311fe788
+      size: 23352
+    - path: src/eval.py
+      hash: md5
+      md5: 707fe219aaab22651f933ceb3f241be9
+      size: 541
