@@ -39,8 +39,22 @@ def main(cfg: DictConfig):
     trainer = pl.Trainer(max_epochs=cfg.max_epochs, logger=mlf, enable_checkpointing=False, log_every_n_steps=10)
     trainer.fit(model, train_loader)
 
+    # ---- ONNX export (동적 배치) ----
+    model.eval()
     dummy = torch.randn(1, in_dim)
-    torch.onnx.export(model, dummy, "model.onnx", input_names=["input"], output_names=["logits"], opset_version=17)
+    with torch.no_grad():
+        torch.onnx.export(
+            model,
+            dummy,
+            "model.onnx",
+            input_names=["input"],
+            output_names=["logits"],
+            dynamic_axes={
+                "input": {0: "batch"},
+                "logits": {0: "batch"},
+            },
+            opset_version=17,
+        )
     print("Exported model.onnx")
 
 if __name__ == "__main__":
