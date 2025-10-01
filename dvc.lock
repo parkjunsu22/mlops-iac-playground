@@ -29,25 +29,25 @@ stages:
     deps:
     - path: conf/model.yaml
       hash: md5
-      md5: 6e5b02f69c8735f5ba7f5d3f0cac0c41
-      size: 53
+      md5: 1036ee0a085f5f980acc4ff96c9e28e4
+      size: 141
     - path: data/processed/train.csv
       hash: md5
       md5: b6ea680e91866a99d6f2adc10e5a7011
       size: 617489
     - path: src/train.py
       hash: md5
-      md5: 57bd5f758783c8ddcf945ad08f6606c1
-      size: 2270
+      md5: a2752885e7fa2060bbc5443e060623c4
+      size: 2835
     outs:
     - path: mlruns
       hash: md5
-      md5: 20ab7d46bd99859b2817a2176d852df0.dir
-      size: 1472
+      md5: 372753645a14e7932ae93d2bf52b6a89.dir
+      size: 1478
       nfiles: 12
     - path: model.onnx
       hash: md5
-      md5: ad35ccede0225a597ecf0ef6311fe788
+      md5: f0b9d01006201ea2b519caec84dbd5f8
       size: 23352
   eval:
     cmd: python -m src.eval
@@ -58,7 +58,7 @@ stages:
       size: 154429
     - path: model.onnx
       hash: md5
-      md5: ad35ccede0225a597ecf0ef6311fe788
+      md5: f0b9d01006201ea2b519caec84dbd5f8
       size: 23352
     - path: src/eval.py
       hash: md5
