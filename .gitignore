@@ -5,3 +5,7 @@ data/**/*.cache
 data/processed/
 model.onnx
 /mlruns
+
+# local backups & outputs
+*.bak
+outputs/
