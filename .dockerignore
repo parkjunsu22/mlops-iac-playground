@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+mlruns/
+data/
+*.ipynb
+*.pt
+*.pth
+*.log
+outputs/
