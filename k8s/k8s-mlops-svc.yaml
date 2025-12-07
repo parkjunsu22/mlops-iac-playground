@@ -13,13 +13,14 @@ spec:
     spec:
       containers:
       - name: svc
-        image: dupjunsu/mlops-svc:0.1
+        image: dupjunsu/mlops-svc:0.3.1
         imagePullPolicy: IfNotPresent
         env:
         - name: MODEL_PATH
           value: /app/model.onnx
         ports:
-        - containerPort: 8000
+        - name: http  
+          containerPort: 8000
         readinessProbe:
           httpGet: { path: /health, port: 8000 }
           initialDelaySeconds: 3
@@ -39,6 +40,7 @@ spec:
     app: mlops-svc
   type: NodePort
   ports:
-  - port: 8000
+  - name: http  
+    port: 8000
     targetPort: 8000
     nodePort: 30080
