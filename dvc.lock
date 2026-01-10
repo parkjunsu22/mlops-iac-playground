@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   preprocess:
-    cmd: python -m src.preprocess
+    cmd: python3 -m src.preprocess
     deps:
     - path: conf/dataset.yaml
       hash: md5
@@ -9,8 +9,8 @@ stages:
       size: 103
     - path: data/raw/sample.csv
       hash: md5
-      md5: c694166fad34e66c9a56f772186b9b1c
-      size: 783008
+      md5: 8d57d6482e91f7dee6f31c55a091daf2
+      size: 21013
     - path: src/preprocess.py
       hash: md5
       md5: d88387e0256974174877dca3470e3d10
@@ -18,14 +18,14 @@ stages:
     outs:
     - path: data/processed/test.csv
       hash: md5
-      md5: 9e2a3bc77b60d05d3fe50c105ae8bc4e
-      size: 154429
+      md5: d047ecb3c9cf237b42109c726dd84e24
+      size: 3964
     - path: data/processed/train.csv
       hash: md5
-      md5: b6ea680e91866a99d6f2adc10e5a7011
-      size: 617489
+      md5: 5d9bdde08c17f5d9d3cacb360060bc86
+      size: 15820
   train:
-    cmd: python -m src.train
+    cmd: python3 -m src.train
     deps:
     - path: conf/model.yaml
       hash: md5
@@ -33,34 +33,46 @@ stages:
       size: 141
     - path: data/processed/train.csv
       hash: md5
-      md5: b6ea680e91866a99d6f2adc10e5a7011
-      size: 617489
+      md5: 5d9bdde08c17f5d9d3cacb360060bc86
+      size: 15820
     - path: src/train.py
       hash: md5
       md5: a2752885e7fa2060bbc5443e060623c4
       size: 2835
     outs:
-    - path: mlruns
-      hash: md5
-      md5: 372753645a14e7932ae93d2bf52b6a89.dir
-      size: 1478
-      nfiles: 12
     - path: model.onnx
       hash: md5
-      md5: f0b9d01006201ea2b519caec84dbd5f8
-      size: 23352
+      md5: fb534f7bf45d395f6e6fc7fccccf0ba8
+      size: 18744
   eval:
-    cmd: python -m src.eval
+    cmd: python3 -m src.eval
     deps:
     - path: data/processed/test.csv
       hash: md5
-      md5: 9e2a3bc77b60d05d3fe50c105ae8bc4e
-      size: 154429
+      md5: d047ecb3c9cf237b42109c726dd84e24
+      size: 3964
     - path: model.onnx
       hash: md5
-      md5: f0b9d01006201ea2b519caec84dbd5f8
-      size: 23352
+      md5: fb534f7bf45d395f6e6fc7fccccf0ba8
+      size: 18744
     - path: src/eval.py
       hash: md5
-      md5: 707fe219aaab22651f933ceb3f241be9
-      size: 541
+      md5: b2f74db67c40494414d53f90305b3a69
+      size: 840
+    outs:
+    - path: outputs/eval.json
+      hash: md5
+      md5: 47f5e2853633321b6a5896d8db94d007
+      size: 42
+  gen_data:
+    cmd: python3 src/gen_data.py
+    deps:
+    - path: src/gen_data.py
+      hash: md5
+      md5: 63bf8e3251700a32af042a394f710ba6
+      size: 492
+    outs:
+    - path: data/raw/sample.csv
+      hash: md5
+      md5: 8d57d6482e91f7dee6f31c55a091daf2
+      size: 21013

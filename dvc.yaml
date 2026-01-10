@@ -1,6 +1,12 @@
 stages:
+  gen_data:
+    cmd: python3 src/gen_data.py
+    deps:
+      - src/gen_data.py
+    outs:
+      - data/raw/sample.csv
   preprocess:
-    cmd: python -m src.preprocess
+    cmd: python3 -m src.preprocess
     deps:
       - src/preprocess.py
       - data/raw/sample.csv
@@ -10,19 +16,19 @@ stages:
       - data/processed/test.csv
 
   train:
-    cmd: python -m src.train
+    cmd: python3 -m src.train
     deps:
       - src/train.py
       - data/processed/train.csv
       - conf/model.yaml
     outs:
       - model.onnx
-    metrics:
-      - mlruns
 
   eval:
-    cmd: python -m src.eval
+    cmd: python3 -m src.eval
     deps:
       - src/eval.py
       - model.onnx
       - data/processed/test.csv
+    metrics:
+      - outputs/eval.json
