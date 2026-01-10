@@ -1,0 +1,7 @@
+pandas
+scikit-learn
+hydra-core
+omegaconf
+torch
+pytorch-lightning
+onnx
